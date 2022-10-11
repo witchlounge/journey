@@ -40,7 +40,9 @@ Issues won't be assigned to any one person.  Instead, if you intend to work on a
 
 Please mark pull requests that are still being worked on by adding `[DRAFT]` before the title, and remove it when it's ready to be reviewed.  
 
-If your pull request fixes a issue listed on GitHub, please include the issue number (#???) and [link the issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) in the description of the pull request, where ??? is the number of the issue.  Adding any of the following keywords in the pull request will close the issue : 
+If your pull request fixes a issue listed on GitHub, please include the issue number (#???) and [link the issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) in the description of the pull request, where ??? is the number of the issue.  
+
+You can also use closing keywords in a commit message. The issue will be closed when you merge the commit into the default branch.  The list of closing keywords is shown below:
 
 ```
 close
