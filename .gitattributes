@@ -1,12 +1,7 @@
 # Auto detect text files and perform LF normalization
-# https://www.davidlaing.com/2012/09/19/customise-your-gitattributes-to-become-a-git-ninja/
 *    text=auto
 
 *.cs text diff=csharp
-###############################################################################
-# Set default behavior to automatically normalize line endings.
-###############################################################################
-*            text=auto
 
 ###############################################################################
 # Set the merge driver for project and solution files
@@ -56,6 +51,8 @@
 #*.props     merge=binary
 #*.filters   merge=binary
 #*.vcxitems  merge=binary
+
+###############################################################################
 ## GITATTRIBUTES FOR WEB PROJECTS
 #
 # These settings are for any web project.
@@ -66,12 +63,6 @@
 #
 # Note that binary is a macro for -text -diff.
 ######################################################################
-
-# Auto detect
-##   Handle line endings automatically for files detected as
-##   text and leave all files detected as binary untouched.
-##   This will handle all files NOT defined below.
-*                 text=auto
 
 # Source code
 *.bash            text eol=lf
