@@ -1,4 +1,4 @@
-# psychic-journey
+# Journey
 
 > Recall the journey, not the destination.
 
