@@ -6,6 +6,7 @@ labels: bug
 assignees: ''
 
 ---
+
 ## Issue Description
 *Please provide a description of the issue; include everything needed to understand the problem.*
 
@@ -32,4 +33,3 @@ assignees: ''
 
 ## Supporting Documents 
 *Attach evidence like screenshots, videos, error logs, crash reports, etc.*
-
