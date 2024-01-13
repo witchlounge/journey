@@ -6,41 +6,30 @@ labels: bug
 assignees: ''
 
 ---
+## Issue Description
+*Please provide a description of the issue; include everything needed to understand the problem.*
 
-## Summary
 
-(Summarize the bug encountered concisely)
+## Environment Details
+*Include details about the environment where the bug was observed.*
 
-## Steps to reproduce
+	App. Version:
+	Device/OS/Browser:
+    User Account:
 
-(How one can reproduce the issue - this is very important)
+## Reproduction Steps
+*Please provide a list of steps that lead to the bug.  The steps should be clear and include beginning from the launch of the application.*
+1. 
 
-## What is the current bug behavior?
 
-(What actually happens)
+## Expected Result
+*What did you expect to happen when following the steps above?*
 
-## What is the expected correct behavior?
 
-(What you should see instead)
+## Actual Result
+*What was it that actually happened? If different from expectation, please describe.*
 
-## Environment details
 
-**Desktop (please complete the following information, if applicable):**
- - OS: 
- - Browser: 
- - Version:
+## Supporting Documents 
+*Attach evidence like screenshots, videos, error logs, crash reports, etc.*
 
-**Smartphone (please complete the following information, if applicable):**
- - Device: 
- - OS: 
- - Browser: 
- - Browser Version: 
-
-## Relevant logs and/or screenshots
-
-(Paste any relevant logs - please use code blocks (```) to format console output, logs, and code, as
-it's very hard to read otherwise.)
-
-## Possible fixes
-
-(If you can, link to the line of code that might be responsible for the problem)
