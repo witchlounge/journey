@@ -1,4 +1,4 @@
-namespace Journey.Test.Database;
+namespace WitchLounge.Journey.Test.Database;
 public class UnitTest1
 {
     [Fact]
