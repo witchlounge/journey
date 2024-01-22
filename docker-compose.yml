@@ -1,0 +1,25 @@
+name: journey
+services:
+  
+  database:
+    #TODO add environment data and secrets for postgres
+    image: postgres:latest
+    restart: unless-stopped
+    container_name: journey-database
+    ports:
+      - 5432:5432
+    volumes:
+      - /etc/journey/data:/var/lib/postgresql/data
+    networks:
+      - back-tier
+  
+  prepare-database:
+    build: ./src/Journey.Database/
+    container_name: prepare-journey-database
+    depends_on:
+      - database    
+    networks:
+      - back-tier
+
+networks:
+  back-tier:
