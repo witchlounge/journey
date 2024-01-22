@@ -2,10 +2,13 @@ name: journey
 services:
   
   database:
-    #TODO add environment data and secrets for postgres
+    #TODO add secrets for postgres
     image: postgres:latest
     restart: unless-stopped
     container_name: journey-database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - 5432:5432
     volumes:
@@ -22,4 +25,4 @@ services:
       - back-tier
 
 networks:
-  back-tier:
+  back-tier:    
