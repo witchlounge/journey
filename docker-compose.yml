@@ -17,7 +17,7 @@ services:
       - back-tier
   
   prepare-database:
-    build: ./src/Journey.Database/
+    build: ./src/WitchLounge.Journey.Database.DatabaseUpgrader/
     container_name: prepare-journey-database
     depends_on:
       - database    
