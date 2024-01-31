@@ -17,5 +17,6 @@ RUN dotnet publish -c Release -o ../../app WitchLounge.Journey.Database.Database
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 as runtime
 WORKDIR /app
 COPY --from=build /app .
+COPY --from=build [ "/src/WitchLounge.Journey.Database.DatabaseUpgrader/appsettings.json", "/src/WitchLounge.Journey.Database.DatabaseUpgrader/appsettings.Production.json", "./" ]
 
 ENTRYPOINT [ "dotnet", "WitchLounge.Journey.Database.DatabaseUpgrader.dll" ]

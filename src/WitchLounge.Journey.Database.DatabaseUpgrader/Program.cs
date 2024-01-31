@@ -16,7 +16,7 @@ internal class Program
         builder.Configuration.Sources.Clear();
         builder.Configuration
             .AddJsonFile("appsettings.json", optional: false)
-            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: false)
             .AddEnvironmentVariables(prefix: "JOURNEY_")
             .AddCommandLine(args);
 
