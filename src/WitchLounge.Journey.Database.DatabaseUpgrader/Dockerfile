@@ -11,11 +11,11 @@ COPY ./WitchLounge.Journey.Common ./WitchLounge.Journey.Common
 WORKDIR /src/WitchLounge.Journey.Database.DatabaseUpgrader
 
 RUN dotnet restore WitchLounge.Journey.Database.DatabaseUpgrader.csproj
-RUN dotnet publish -c Release -o ../../app/dist WitchLounge.Journey.Database.DatabaseUpgrader.csproj
+RUN dotnet publish -c Release -o ../../app WitchLounge.Journey.Database.DatabaseUpgrader.csproj
 
 # run application
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 as runtime
 WORKDIR /app
-COPY --from=build /app/dist .
+COPY --from=build /app .
 
 ENTRYPOINT [ "dotnet", "WitchLounge.Journey.Database.DatabaseUpgrader.dll" ]

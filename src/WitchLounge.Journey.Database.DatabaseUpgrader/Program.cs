@@ -2,42 +2,59 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
 using Serilog;
-
 using WitchLounge.Journey.Common;
 
 namespace WitchLounge.Journey.Database.DatabaseUpgrader;
 
 internal class Program
 {
-    static async Task Main(string[] args)
-    {
+    private static HostApplicationBuilder ConfigureHostBuilderAsync(string[] args) {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
         IHostEnvironment env = builder.Environment;
 
-        // TODO bootstrap logging, error handling
-
         builder.Configuration.Sources.Clear();
         builder.Configuration
-          .AddJsonFile("appsettings.json", true, true)
-          .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true)
-          .AddEnvironmentVariables(prefix: "JOURNEY_")
-          .AddCommandLine(args);
+            .AddJsonFile("appsettings.json", optional: false)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+            .AddEnvironmentVariables(prefix: "JOURNEY_")
+            .AddCommandLine(args);
 
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog(
-          new LoggerConfiguration()
-            .ReadFrom.Configuration(builder.Configuration)
-            .CreateLogger());
+            new LoggerConfiguration()
+                .ReadFrom.Configuration(builder.Configuration)
+                .CreateLogger());
 
         builder.Services
-          .AddHostedService<DatabaseUpgraderService>()
-          .AddOptions<DatabaseOptions>()
-          .Bind(builder.Configuration.GetSection(DatabaseOptions.Key))
-          .ValidateDataAnnotations();  // TODO is this working?
+            .AddHostedService<DatabaseUpgraderService>()
+            .AddOptions<DatabaseOptions>()
+            .Bind(builder.Configuration.GetSection(DatabaseOptions.Key))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
-        using IHost host = builder.Build();
-        await host.RunAsync();
+        return builder;
+    }
+
+    static async Task Main(string[] args)
+    {
+        Log.Logger = new LoggerConfiguration()
+        .WriteTo.Console()
+        .CreateBootstrapLogger();
+
+        try
+        {
+            using IHost host = ConfigureHostBuilderAsync(args).Build();
+            await host.RunAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "An unhandled exception occurred during initialization.");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+
+        }
     }
 }

@@ -9,30 +9,44 @@ internal sealed class DatabaseUpgraderService(ILogger<DatabaseUpgraderService> l
     private readonly ILogger _logger = logger;
     private readonly IHostApplicationLifetime _hostApplicationLifetime = hostApplicationLifetime;
     private readonly IConfiguration _configuration = configuration;
+    private ExitCode? _exitCode;
 
-    public Task StartAsync(CancellationToken cancellationToken)
+    [Flags]
+    enum ExitCode {
+        Success = 0,
+        Failure = 1
+    }
+
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        _hostApplicationLifetime.ApplicationStarted.Register(() => Task.Run(async () =>
+        _logger.LogInformation($"Starting {nameof(DatabaseUpgraderService)}");
+        // TODO is the line below necessary?
+        // _hostApplicationLifetime.ApplicationStarted.Register(() => Task.Run(async () =>
+        // {
+        try
         {
-            try
-            {
-                _logger.LogInformation("Hello World");
-                await Task.Delay(1000);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Unhandled exception");
-            }
-            finally
-            {
-                _hostApplicationLifetime.StopApplication();
-            }
-        }));
-        return Task.CompletedTask;
+            _logger.LogInformation("Hello World");
+            await Task.Delay(1000, cancellationToken);
+            _exitCode = ExitCode.Success;
+        }
+        catch (OperationCanceledException) {
+            _logger.LogInformation("Database Upgrade operation canceled");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unhandled exception");
+            _exitCode = ExitCode.Failure;
+        }
+        finally
+        {
+            _hostApplicationLifetime.StopApplication();
+        }
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
     {
+        Environment.ExitCode = (int?)_exitCode ?? -1;
+        _logger.LogInformation($"Stopping service {nameof(DatabaseUpgraderService)}");
         return Task.CompletedTask;
     }
 }
