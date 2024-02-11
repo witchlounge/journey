@@ -3,7 +3,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy Database Updater references
-# TODO single COPY command ?
 COPY ./WitchLounge.Journey.Database.DatabaseUpgrader ./WitchLounge.Journey.Database.DatabaseUpgrader
 COPY ./WitchLounge.Journey.Database ./WitchLounge.Journey.Database
 COPY ./WitchLounge.Journey.Common ./WitchLounge.Journey.Common

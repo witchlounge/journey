@@ -1,8 +1,7 @@
 name: journey
 services:
-  
+
   database:
-    #TODO add secrets for postgres
     image: postgres:latest
     restart: unless-stopped
     container_name: journey-database
@@ -15,21 +14,21 @@ services:
       - journey-data:/var/lib/postgresql/data
     networks:
       - back-tier
-  
+
   prepare-database:
     build:
       context: ./src
       dockerfile: ./WitchLounge.Journey.Database.DatabaseUpgrader/Dockerfile
     container_name: prepare-journey-database
     depends_on:
-      - database    
+      - database
     networks:
       - back-tier
 
 volumes:
   journey-data:
-    labels: 
-      com.journey.description: "Development database volume"    
+    labels:
+      com.journey.description: "Development database volume"
 
 networks:
-  back-tier:    
+  back-tier:

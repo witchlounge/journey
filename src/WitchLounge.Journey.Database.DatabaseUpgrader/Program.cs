@@ -2,14 +2,17 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
 using Serilog;
+
 using WitchLounge.Journey.Common;
 
 namespace WitchLounge.Journey.Database.DatabaseUpgrader;
 
 internal class Program
 {
-    private static HostApplicationBuilder ConfigureHostBuilderAsync(string[] args) {
+    private static HostApplicationBuilder ConfigureHostBuilderAsync(string[] args)
+    {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
         IHostEnvironment env = builder.Environment;
 
@@ -30,8 +33,7 @@ internal class Program
             .AddHostedService<DatabaseUpgraderService>()
             .AddOptions<DatabaseOptions>()
             .Bind(builder.Configuration.GetSection(DatabaseOptions.Key))
-            .ValidateDataAnnotations()
-            .ValidateOnStart();
+            .ValidateDataAnnotations();
 
         return builder;
     }
@@ -39,8 +41,8 @@ internal class Program
     static async Task Main(string[] args)
     {
         Log.Logger = new LoggerConfiguration()
-        .WriteTo.Console()
-        .CreateBootstrapLogger();
+            .WriteTo.Console()
+            .CreateBootstrapLogger();
 
         try
         {
