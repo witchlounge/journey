@@ -1,0 +1,78 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run unit tests & generate coverage reports",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Clean solution",
+        "Clean coverage folder",
+        "Clean TestResults folders",
+        "Run unit tests",
+        "Generate coverlet code coverage report"
+      ],
+      "problemMatcher": [
+        "$msCompile"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Generate coverlet code coverage report",
+      "command": "reportgenerator",
+      "type": "shell",
+      "args": [
+        "-reports:test/**/TestResults/**/coverage.cobertura.xml",
+        "-targetdir:coverage",
+        "-reporttypes:Html"
+      ],
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
+      "label": "Run unit tests",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "test",
+        "--collect:\"XPlat Code Coverage\""
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+        "label": "Clean solution",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+          "clean"
+        ],
+        "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Clean TestResults folders",
+      "command": "rm",
+      "type": "shell",
+      "args": [
+        "-rf",
+        "./test/**/TestResults/"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Clean coverage folder",
+      "command": "rm",
+      "type": "shell",
+      "args": [
+        "-rf",
+        "./coverage/"
+      ],
+      "problemMatcher": []
+    },
+
+  ]
+}

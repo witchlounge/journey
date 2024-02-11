@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C#: WitchLounge.Journey.Database.DatabaseUpgrader [Development]",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/src/WitchLounge.Journey.Database.DatabaseUpgrader/WitchLounge.Journey.Database.DatabaseUpgrader.csproj",
+            "launchConfigurationId": "TargetFramework=;Development",
+        },
+        {
+            "name": "C#: WitchLounge.Journey.Database.DatabaseUpgrader [Production]",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/src/WitchLounge.Journey.Database.DatabaseUpgrader/WitchLounge.Journey.Database.DatabaseUpgrader.csproj",
+            "launchConfigurationId": "TargetFramework=;Production"
+        }
+    ]
+}

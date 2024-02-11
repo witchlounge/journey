@@ -1,0 +1,34 @@
+name: journey
+services:
+
+  database:
+    image: postgres:latest
+    restart: unless-stopped
+    container_name: journey-database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - journey-data:/var/lib/postgresql/data
+    networks:
+      - back-tier
+
+  prepare-database:
+    build:
+      context: ./src
+      dockerfile: ./WitchLounge.Journey.Database.DatabaseUpgrader/Dockerfile
+    container_name: prepare-journey-database
+    depends_on:
+      - database
+    networks:
+      - back-tier
+
+volumes:
+  journey-data:
+    labels:
+      com.journey.description: "Development database volume"
+
+networks:
+  back-tier:
